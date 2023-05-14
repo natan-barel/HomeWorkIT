@@ -1,0 +1,38 @@
+services:
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - '9090:80'
+    networks:
+      - showIPnetwork  
+    depends_on:
+      - app1
+      - app2
+      - app3
+  app1:
+    build: ./backend
+    container_name: app1
+    stop_signal: SIGINT
+    volumes:
+        - './backend:/src'
+    networks:
+        - showIPnetwork         
+  app2:
+    build: ./backend
+    container_name: app2
+    stop_signal: SIGINT
+    volumes:
+        - './backend:/src'
+    networks:
+        - showIPnetwork         
+  app3:
+    build: ./backend
+    container_name: app3
+    stop_signal: SIGINT
+    volumes:
+        - './backend:/src'
+    networks:
+        - showIPnetwork                      
+networks:
+  showIPnetwork:
